@@ -1,13 +1,18 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
-namespace Morabaraba_9001
+namespace Morabaraba
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IPlayer black = new Player("Black", 'B');
+            IPlayer white = new Player("White", 'W');
+            IBoard b = new Board();
+            IGame myGame = new Game(black, white, b);
+            myGame.Run(); 
         }
     }
 }

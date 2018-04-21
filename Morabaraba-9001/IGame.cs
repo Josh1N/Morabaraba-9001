@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Morabaraba
 {
-
-    class Referee
+    public interface IGame
     {
-   
+        void printInstructions();
+        void Run(); 
     }
 }
