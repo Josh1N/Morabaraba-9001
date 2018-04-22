@@ -102,6 +102,10 @@ namespace Morabaraba
         {
             return onBoard;
         }
+        public int getUnplaced()
+        {
+            return unplaced; 
+        }
         public Player(string Name, char Place)
         {
             state = checkPlayerState();
