@@ -3,8 +3,9 @@ using System.Linq;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections.Generic;
+using Morabaraba;
 
-namespace Morabaraba_9001.Test
+namespace Morabaraba_9001.Test 
 {
     [TestFixture]
     public class Test
@@ -21,9 +22,18 @@ namespace Morabaraba_9001.Test
         [Test]
         public void gameStart()
         {
-
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            bool empty = false; 
+            List<string> Positions = new List<string> { "A1", "A4", "A7", "B2", "B4", "B6", "C3", "C4", "C5", "D1", "D2", "D3", "D5", "D6", "D7", "E3", "E4", "E5", "F2", "F4", "F6", "G1", "G4", "G7" };
+            IBoard mockBoard = Substitute.For<Board>();
+            //act 
+            foreach(string pos in Positions)
+            {
+                empty = mockBoard.isAvailable(pos); 
+                if(empty == false) { break; }
+            }
+            //assert
+            Assert.That(empty == true); 
         }
 
         [Test]
@@ -63,11 +73,10 @@ namespace Morabaraba_9001.Test
          * 
          */
 
-        static object[] adjacentPlace =
-        {
-             bool f = false;
-        Assert.That(f = false);
-        };
+        //static object[] adjacentPlace =
+        //{
+
+        //}
 
 
 
