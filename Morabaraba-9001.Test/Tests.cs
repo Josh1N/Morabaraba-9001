@@ -86,8 +86,15 @@ namespace Morabaraba_9001.Test
         [Test]
         public void twelveCowsPerPlayer()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            //act
+            int bows = mockBlack.getUnplaced();
+            int wows = mockWhite.getUnplaced();
+            //assert
+            Assert.That(bows == 12);
+            Assert.That(wows == 12); 
         }
 
         [Test]
