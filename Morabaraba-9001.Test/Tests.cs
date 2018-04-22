@@ -100,8 +100,18 @@ namespace Morabaraba_9001.Test
         [Test]
         public void cantMovePlacedCows()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            //act
+            string blackState = mockBlack.getState();
+            mockBoard.Placing("a1", mockBlack);
+            bool check1 = mockGame.validateInput("a1 a4");
+            //assert
+            Assert.That(blackState == "Placing");
+            Assert.That(check1 == false); 
         }
 
         /*
