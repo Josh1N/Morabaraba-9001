@@ -470,15 +470,15 @@ namespace Morabaraba
                 case "B4":
                     posB4 = 'O';
                     updateLine = board[3].Remove(12, 1);
-                    updateLine = updateLine.Insert(12, posB2.ToString());
+                    updateLine = updateLine.Insert(12, posB4.ToString());
                     board[3] = updateLine;
                     Positions.Remove(pos);
                     break;
 
                 case "B6":
-                    posB4 = 'O';
+                    posB6 = 'O';
                     updateLine = board[3].Remove(19, 1);
-                    updateLine = updateLine.Insert(19, posB2.ToString());
+                    updateLine = updateLine.Insert(19, posB6.ToString());
                     board[3] = updateLine;
                     Positions.Remove(pos);
                     break;
@@ -573,7 +573,7 @@ namespace Morabaraba
                 case "E5":
                     posE5 = 'O';
                     updateLine = board[9].Remove(16, 1);
-                    updateLine = updateLine.Insert(16, posE3.ToString());
+                    updateLine = updateLine.Insert(16, posE5.ToString());
                     board[9] = updateLine;
                     Positions.Remove(pos);
                     break;

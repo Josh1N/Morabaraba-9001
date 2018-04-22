@@ -130,7 +130,6 @@ namespace Morabaraba
 
         public void Run()
         {
-            printInstructions();
             Board.printGameBoard();
             string ans = currentPlayer.getInput();
             if (validateInput(ans))
