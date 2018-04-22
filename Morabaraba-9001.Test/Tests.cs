@@ -307,15 +307,74 @@ namespace Morabaraba_9001.Test
         [Test]
         public void millsFormed()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            bool check1 = false;
+      
+
+            //act
+            string ans = "A1";
+            mockBoard.Placing(ans, mockBlack);
+            List<string> positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            ans = "A4";
+            mockBoard.Placing(ans, mockBlack);
+            positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            ans = "A7";
+            mockBoard.Placing(ans, mockBlack);
+            positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            check1 = mockBoard.checkMills(mockBlack);
+
+            //assert
+            Assert.That(check1 == true);
+           
         }
 
         [Test]
         public void millNotFormed()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            bool check1 = false;
+
+
+            //act
+            string ans = "A1";
+            mockBoard.Placing(ans, mockBlack);
+            List<string> positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            ans = "A4";
+            mockBoard.Placing(ans, mockWhite);
+            positionsHeld = mockWhite.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockWhite.updatePositionsHeld(positionsHeld);
+
+            ans = "A7";
+            mockBoard.Placing(ans, mockBlack);
+            positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            check1 = mockBoard.checkMills(mockBlack);
+
+            //assert
+            Assert.That(check1 == false);
         }
 
         [Test]
@@ -342,22 +401,87 @@ namespace Morabaraba_9001.Test
         [Test]
         public void cantKillOwnCow()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            bool check1 = true;
+            
+            //act
+            string ans = "A1";
+            mockBoard.Placing(ans, mockBlack);
+            List<string> positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            check1 = mockGame.validateKill("A1", mockWhite);
+
+            //assert
+            Assert.That(check1 == false);
+         
         }
 
         [Test]
         public void cannotShootEmptySpace()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            bool check1 = false;
+            bool check2 = false;
+
+            //act
+            string ans = "A1";
+            mockBoard.Placing(ans, mockBlack);
+            List<string> positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            ans = "B2";
+            mockBoard.Placing(ans, mockBlack);
+            positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+
+            check1 = mockGame.validateKill("A1", mockBlack); //Acting as if white is killing
+            check2 = mockGame.validateKill("B2", mockBlack);
+
+
+            //assert
+            Assert.That(check1 == true);
+            Assert.That(check2 == true);
         }
 
         [Test]
         public void deadCowsRemoved()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            bool check1 = false;
+           
+            //act
+            string ans = "A1";
+            mockBoard.Placing(ans, mockBlack);
+            List<string> positionsHeld = mockBlack.getPositionsHeld();
+            positionsHeld.Add(ans);
+            mockBlack.updatePositionsHeld(positionsHeld);
+            mockBoard.Killing("A1");
+
+            List<string> positionsHeld1 = mockBlack.getPositionsHeld();
+            positionsHeld1.Remove(ans);
+            mockBlack.updatePositionsHeld(positionsHeld1);
+
+            check1 = mockBoard.isAvailable("A1"); //Acting as if white is killing
+          
+            //assert
+            Assert.That(check1 == true);
+           
         }
 
         [Test]

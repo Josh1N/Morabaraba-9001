@@ -96,7 +96,7 @@ namespace Morabaraba
             }
         }
 
-        public void validateKill(string kill)
+        public bool validateKill(string kill, IPlayer otherPlayer)
         {
             List<string> positionsHeld = otherPlayer.getPositionsHeld();
             if (positionsHeld.Contains(kill))
@@ -105,12 +105,12 @@ namespace Morabaraba
                 // a recursive function -> so I can leave this 'true' case empty because the method 
                 // will repeat until a valid kill is given by the user -> the game will only continue
                 // once a valid position has been given 
+                return true;
             }
             else
             {
-                Console.WriteLine("The position is not valid. Please enter a valid position to place a cow on the board.");
-                kill = Console.ReadLine().ToUpper();
-                validateKill(kill);
+
+                return false;
             }
 
         }
@@ -172,23 +172,34 @@ namespace Morabaraba
                     // possibly do a kill
                     Console.WriteLine("You've made a mill! choose one of the other player's cows to kill:");
                     string kill = Console.ReadLine().ToUpper();
-                    validateKill(kill);
+                   
 
-                    if(Board.check(kill, otherPlayer) != null)
+                    if (validateKill(kill, otherPlayer))
                     {
-                        string[] playerMill = Board.check(kill, otherPlayer);
-                        List<string[]> playerMills = otherPlayer.getPlayerMills();
-                        playerMills.Add(playerMill);
-                        otherPlayer.updateMills(playerMills); 
+                        if (Board.check(kill, otherPlayer) != null)
+                        {
+                            string[] playerMill = Board.check(kill, otherPlayer);
+                            List<string[]> playerMills = otherPlayer.getPlayerMills();
+                            playerMills.Add(playerMill);
+                            otherPlayer.updateMills(playerMills);
+                        }
+                        // here's the kill
+                        Board.Killing(kill);
+                        // remove kill from otherPlayer's positionsHeld --> create updatePositionsHeld method
+                        List<string> positionsHeld1 = otherPlayer.getPositionsHeld();
+                        positionsHeld1.Remove(ans);
+                        otherPlayer.updatePositionsHeld(positionsHeld1);
+                        // decrement otherPlayer's onBoard count by 1 --> create updateOnBoard method
+                        otherPlayer.updatePieces(-1, 0);
                     }
-                    // here's the kill
-                    Board.Killing(kill);
-                    // remove kill from otherPlayer's positionsHeld --> create updatePositionsHeld method
-                    List<string> positionsHeld1 = otherPlayer.getPositionsHeld();
-                    positionsHeld1.Remove(ans);
-                    otherPlayer.updatePositionsHeld(positionsHeld1);
-                    // decrement otherPlayer's onBoard count by 1 --> create updateOnBoard method
-                    otherPlayer.updatePieces(-1, 0); 
+                    else
+                    {
+                        Console.WriteLine("The position is not valid. Please enter a valid position to place a cow on the board.");
+                        kill = Console.ReadLine().ToUpper();
+                        validateKill(kill, otherPlayer);
+                    }
+
+
                 }
                 // print the board
                 Board.printGameBoard();

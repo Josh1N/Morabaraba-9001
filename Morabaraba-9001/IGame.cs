@@ -10,5 +10,6 @@ namespace Morabaraba
         void Run();
         IPlayer getCurrentPlayer();
         bool validateInput(string ans);
+        bool validateKill(string kill, IPlayer otherPlayer);
     }
 }
