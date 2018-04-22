@@ -38,14 +38,17 @@ namespace Morabaraba
         {
             if (unplaced > 0)
             {
+                state = "Placing";
                 return "Placing";
             }
             else if (unplaced == 0)
             {
-               return "Moving";
+                state = "Moving"; 
+                return "Moving";
             }
             else if (onBoard < 4 && unplaced == 0)
             {
+                state = "Flying"; 
                 return "Flying";
             }
             else
@@ -102,6 +105,16 @@ namespace Morabaraba
         {
             return onBoard;
         }
+        public int getUnplaced()
+        {
+            return unplaced; 
+        }
+
+        //public void updateUnplaced(int updated)
+        //{
+        //    unplaced = updated; 
+        //}
+
         public Player(string Name, char Place)
         {
             state = checkPlayerState();

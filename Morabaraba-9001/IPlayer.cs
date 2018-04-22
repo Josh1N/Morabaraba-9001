@@ -17,5 +17,7 @@ namespace Morabaraba
         void updatePositionsHeld(List<string> updated);
         void updatePieces(int onB, int unP);
         int getOnBoard();
+        int getUnplaced();
+        //void updateUnplaced(int updated);
     }
 }

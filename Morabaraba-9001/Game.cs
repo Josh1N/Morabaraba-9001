@@ -128,14 +128,30 @@ namespace Morabaraba
             else { return null; }
         }
 
+        public IPlayer getCurrentPlayer()
+        {
+            return currentPlayer;
+        }
+
         public void Run()
         {
             Board.printGameBoard();
+            currentPlayer.checkPlayerState();
             string ans = currentPlayer.getInput();
             if (validateInput(ans))
             {
                 // place piece
-                Board.Placing(ans, currentPlayer);
+                if(currentPlayer.getState() == "Placing")
+                {
+                    Board.Placing(ans, currentPlayer);
+                }else if(currentPlayer.getState() == "Moving" || currentPlayer.getState() == "Flying")
+                {
+                    string[] answers = ans.Split(' ');
+                    string ans1 = answers[0];
+                    string ans2 = answers[1];
+                    Board.Killing(ans1);
+                    Board.Placing(ans2, currentPlayer);
+                }
                 // add position to player's positionsHeld
                 List<string> positionsHeld = currentPlayer.getPositionsHeld();
                 positionsHeld.Add(ans);

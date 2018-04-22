@@ -11,5 +11,6 @@ namespace Morabaraba
         void Placing(string pos, IPlayer currentPlayer);
         bool checkMills(IPlayer currentPlayer);
         string[] check(string ans, IPlayer player);
+        void updateBoard(List<string> updated);
     }
 }
