@@ -54,8 +54,33 @@ namespace Morabaraba_9001.Test
         [Test]
         public void cowPlacementOnEmptySpace()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            List<string> board1 = new List<string>()
+            {
+                "  1  2  3   4   5  6  7  \n",
+                "A B ------- O ------- O  \n",  //A1 =[1][2]    A4=[1][12]      A7=[1][22]
+                "  | '       |       ' |  \n",
+                "B |  O ---- O ---- O  |  \n",  //B2 =[3][5]    B4=[3][12]      B6=[3][19]
+                "  |  | '    |   '  |  |  \n",
+                "C |  |  O - W - O  |  |  \n",  //C3 =[5][8]    C4 =[5][12]     C5=[5][16]
+                "  |  |  |       |  |  |  \n",
+                "D O -W- O       O -B- O  \n",  //D1=[7][2]     D2=[7][5]       D3=[7][8]     D5=[7][16]     D6=[7][19]    D7=[7][22]
+                "  |  |  |       |  |  |  \n",
+                "E |  |  O - B - O  |  |  \n",  //E3=[9][8]     E4=[9][12]      E5=[9][16]
+                "  |  | '    |    ' |  |  \n",
+                "F |  O ---- W ---- O  |  \n",  //F2=[11][5]    F4=[11][12]     F6=[11][19]    
+                "  | '       |       ' |  \n",
+                "G O ------- O ------- O  \n\n"  //G1=[13][2]   G4=[13][12]     G7=[13][22]
+            };
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            mockBoard.updateBoard(board1);
+            //act
+            bool check1 = mockGame.validateInput("A1");
+            //assert
+            Assert.That(check1 == false);
         }
 
         [Test]

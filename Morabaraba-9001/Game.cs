@@ -128,6 +128,11 @@ namespace Morabaraba
             else { return null; }
         }
 
+        public IPlayer getCurrentPlayer()
+        {
+            return currentPlayer;
+        }
+
         public void Run()
         {
             Board.printGameBoard();

@@ -7,6 +7,8 @@ namespace Morabaraba
     public interface IGame
     {
         void printInstructions();
-        void Run(); 
+        void Run();
+        IPlayer getCurrentPlayer();
+        bool validateInput(string ans);
     }
 }
