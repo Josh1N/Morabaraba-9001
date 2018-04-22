@@ -39,8 +39,15 @@ namespace Morabaraba_9001.Test
         [Test]
         public void blackPlayerStarts()
         {
-            bool f = false;
-            Assert.That(f = false);
+            //arrange
+            IPlayer mockBlack = Substitute.For<Player>("Black", 'B');
+            IPlayer mockWhite = Substitute.For<Player>("White", 'W');
+            IBoard mockBoard = Substitute.For<Board>();
+            IGame mockGame = Substitute.For<Game>(mockBlack, mockWhite, mockBoard);
+            //act
+            IPlayer currentPLayer = mockGame.getCurrentPlayer();
+            //assert
+            Assert.That(currentPLayer == mockBlack); 
         }
 
 
